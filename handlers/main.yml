@@ -1,2 +1,12 @@
 ---
 # handlers file for sorensj.tftp
+
+- name: Restart tftpd-hpa
+  ansible.builtin.service:
+    name: tftpd-hpa
+    state: restarted
+
+- name: Restart apt-cacher-ng
+  ansible.builtin.service:
+    name: apt-cacher-ng
+    state: restarted
