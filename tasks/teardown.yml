@@ -1,0 +1,28 @@
+---
+# Teardown tasks for apt-cacher-ng and uninstalling the package
+- name: Stop TFTPD-HPA service
+  ansible.builtin.service:
+    name: tftpd-hpa
+    state: stopped
+    enabled: no
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Uninstall TFTPD-HPA package
+  ansible.builtin.apt:
+    name: tftpd-hpa
+    state: absent
+    purge: true
+  become: true
+  when: ansible_distribution == 'Ubuntu'
+  register: tftpd-hpa_uninstalled
+
+- name: Remove tftpd-hpa configuration
+  ansible.builtin.file:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/default/tftpd-hpa
+    - /etc/init.d/tftpd-hpa
+  become: true
+  when: tftpd-hpa_uninstalled.changed
