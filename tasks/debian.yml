@@ -1,6 +1,6 @@
 ---
 - name: debian | Installing Apache2
-  apt:
+  ansible.builtin.apt:
     name: "apache2"
     state: "present"
   when: tftpserver_install_apache

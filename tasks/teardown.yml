@@ -18,7 +18,7 @@
   register: tftpd-hpa_uninstalled
 
 - name: Remove tftpd-hpa configuration
-  ansible.builtin.file:
+  file:
     name: "{{ item }}"
     state: absent
   with_items:
