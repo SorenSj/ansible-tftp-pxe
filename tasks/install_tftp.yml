@@ -1,0 +1,8 @@
+---
+- name: install_tftp | Include Debian tasks
+  ansible.builtin.include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: install_tftp | Include TFTP configuration
+  ansible.builtin.include_tasks: config_tftp.yml
+  when: tftpserver_config_tftp
