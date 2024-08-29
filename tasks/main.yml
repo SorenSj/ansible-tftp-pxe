@@ -1,11 +1,10 @@
 ---
 # tasks file for sorensj.tftp
 
-- include: debian.yml
-  when: ansible_os_family == "Debian"
+- name: Install TFTPD-HPA package
+  ansible.builtin.include_tasks: install_tftp.yml
+  when: tftpserver_install_tftp
 
-- include: config_tftp.yml
-  when: tftpserver_config_tftp
-
-- include: build_images.yml
+- name: Build images on TFTP Server
+  ansible.builtin.include_tasks: build_images.yml
   when: tftpserver_build_images
